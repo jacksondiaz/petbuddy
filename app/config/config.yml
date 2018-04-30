@@ -1,0 +1,137 @@
+imports:
+    - { resource: parameters.yml }
+    - { resource: security.yml }
+    - { resource: services.yml }
+
+# Put parameters here that don't need to change on each machine where the app is deployed
+# https://symfony.com/doc/current/best_practices/configuration.html#application-related-configuration
+parameters:
+    locale: en
+
+framework:
+    #esi: ~
+    #translator: { fallbacks: ['%locale%'] }
+    secret: '%secret%'
+    router:
+        resource: '%kernel.project_dir%/app/config/routing.yml'
+        strict_requirements: ~
+    form: ~
+    csrf_protection: ~
+    validation: { enable_annotations: true }
+    #serializer: { enable_annotations: true }
+    default_locale: '%locale%'
+    trusted_hosts: ~
+    session:
+        # https://symfony.com/doc/current/reference/configuration/framework.html#handler-id
+        handler_id: session.handler.native_file
+        save_path: '%kernel.project_dir%/var/sessions/%kernel.environment%'
+    fragments: ~
+    http_method_override: true
+    assets: ~
+    php_errors:
+        log: true
+
+# Twig Configuration
+twig:
+    debug: '%kernel.debug%'
+    strict_variables: '%kernel.debug%'
+
+# Doctrine Configuration
+doctrine:
+    dbal:
+        default_connection: shared_db
+        connections:
+          shared_db:
+            driver: pdo_mysql
+            host: '%database_host%'
+            port: '%database_port%'
+            dbname: '%database_name_0%'
+            user: '%database_user%'
+            password: '%database_password%'
+            charset: UTF8
+            unix_socket: /Applications/MAMP/tmp/mysql/mysql.sock
+          hotel_db_1:
+            driver: pdo_mysql
+            host: '%database_host%'
+            port: '%database_port%'
+            dbname: '%database_name_1%'
+            user: '%database_user%'
+            password: '%database_password%'
+            charset: UTF8
+            unix_socket: /Applications/MAMP/tmp/mysql/mysql.sock
+          hotel_db_2:
+            driver: pdo_mysql
+            host: '%database_host%'
+            port: '%database_port%'
+            dbname: '%database_name_2%'
+            user: '%database_user%'
+            password: '%database_password%'
+            charset: UTF8
+            unix_socket: /Applications/MAMP/tmp/mysql/mysql.sock
+          hotel_db_3:
+            driver: pdo_mysql
+            host: '%database_host%'
+            port: '%database_port%'
+            dbname: '%database_name_3%'
+            user: '%database_user%'
+            password: '%database_password%'
+            charset: UTF8
+            unix_socket: /Applications/MAMP/tmp/mysql/mysql.sock
+
+        # if using pdo_sqlite as your database driver:
+        #   1. add the path in parameters.yml
+        #     e.g. database_path: '%kernel.project_dir%/var/data/data.sqlite'
+        #   2. Uncomment database_path in parameters.yml.dist
+        #   3. Uncomment next line:
+        #path: '%database_path%'
+
+    orm:
+        #auto_generate_proxy_classes: '%kernel.debug%'
+        #auto_mapping: true
+        #naming_strategy: doctrine.orm.naming_strategy.underscore
+        default_entity_manager: shared_db
+        entity_managers:
+            shared_db:
+                connection: shared_db
+                mappings:
+                  shared_db:
+                    is_bundle: false
+                    type:     annotation
+                    dir:      '%kernel.project_dir%/src/AppBundle/Entity/Shared'
+                    prefix:   'AppBundle\Entity\Shared'
+                    alias: shared_db
+            hotel_db_1:
+                connection: hotel_db_1
+                mappings:
+                  hotel_db_1:
+                    is_bundle: false
+                    type:     annotation
+                    dir:      '%kernel.project_dir%/src/AppBundle/Entity/Hotel'
+                    prefix:   'AppBundle\Entity\Hotel'
+                    alias: hotel_db_1
+            hotel_db_2:
+                connection: hotel_db_2
+                mappings:
+                  hotel_db_2:
+                    is_bundle: false
+                    type:     annotation
+                    dir:      '%kernel.project_dir%/src/AppBundle/Entity/Hotel'
+                    prefix:   'AppBundle\Entity\Hotel'
+                    alias: hotel_db_2
+            hotel_db_3:
+                connection: hotel_db_3
+                mappings:
+                  hotel_db_3:
+                    is_bundle: false
+                    type:     annotation
+                    dir:      '%kernel.project_dir%/src/AppBundle/Entity/Hotel'
+                    prefix:   'AppBundle\Entity\Hotel'
+                    alias: hotel_db_3
+
+# Swiftmailer Configuration
+swiftmailer:
+    transport: '%mailer_transport%'
+    host: '%mailer_host%'
+    username: '%mailer_user%'
+    password: '%mailer_password%'
+    spool: { type: memory }
